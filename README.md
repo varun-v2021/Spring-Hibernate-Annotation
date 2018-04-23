@@ -92,7 +92,22 @@ AUTO: Hibernate selects the generation strategy based on the used dialect,
 IDENTITY: Hibernate relies on an auto-incremented database column to generate the primary key,
 SEQUENCE: Hibernate requests the primary key value from a database sequence,
 TABLE: Hibernate uses a database table to simulate a sequence.
-	  
+
+# Hibernate Cache working
+
+Whenever hibernate session try to load an entity, the very first place it look for cached copy of entity in first level cache (associated with particular hibernate session).
+
+If cached copy of entity is present in first level cache, it is returned as result of load method.
+
+If there is no cached entity in first level cache, then second level cache is looked up for cached entity.
+
+If second level cache has cached entity, it is returned as result of load method. But, before returning the entity, it is stored in first level cache also so that next invocation to load method for entity will return the entity from first level cache itself, and there will not be need to go to second level cache again.
+
+If entity is not found in first level cache and second level cache also, then database query is executed and entity is stored in both cache levels, before returning as response of load() method.
+
+Second level cache validate itself for modified entities, if modification has been done through hibernate session APIs.
+
+If some user or process make changes directly in database, the there is no way that second level cache update itself until “timeToLiveSeconds” duration has passed for that cache region. In this case, it is good idea to invalidate whole cache and let hibernate build its cache once again. You can use below code snippet to invalidate whole hibernate second level cache.
 
 # References:
 Download  hibernate annotations zip from following and add it to project along with connector and other hibernate depended jars:
@@ -102,3 +117,4 @@ https://howtodoinjava.com/hibernate/hibernate-one-to-one-mapping-using-annotatio
 https://dzone.com/tutorials/java/hibernate/hibernate-example/hibernate-mapping-one-to-many-using-annotations-1.html
 https://howtodoinjava.com/hibernate/hibernate-one-to-many-mapping-using-annotations/
 https://howtodoinjava.com/hibernate/hibernate-many-to-many-mapping-using-annotations/
+https://howtodoinjava.com/hibernate/hibernate-ehcache-configuration-tutorial/
