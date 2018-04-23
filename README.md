@@ -1,4 +1,4 @@
-# Spring-Hibernate-Annotation
+# Spring-Hibernate5-Annotation
 
 Download hibernate5 annotations zip from following and add it to project along with connector and other hibernate depended jars:
 https://sourceforge.net/projects/hibernate/files/hibernate-annotations/3.4.0.GA/hibernate-annotations-3.4.0.GA.zip/download
