@@ -19,6 +19,7 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "READER", uniqueConstraints = {
         @UniqueConstraint(columnNames = "ID"),
         @UniqueConstraint(columnNames = "EMAIL") })
+@Cache(usage=CacheConcurrencyStrategy.READ_ONLY, region="reader")	//Uses secondary EH Cache
 public class ReaderEntity implements Serializable {
  
     private static final long serialVersionUID = -1798070786993154676L;
